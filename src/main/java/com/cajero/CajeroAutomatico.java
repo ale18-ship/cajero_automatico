@@ -7,6 +7,8 @@ public class CajeroAutomatico {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
+        int saldo = 0;
+
         do {
             System.out.println("\n=== Simulador Cajero Automático ===");
             System.out.println("1. Consultar saldo");
@@ -17,7 +19,7 @@ public class CajeroAutomatico {
             opcion = sc.nextInt();
 
             switch (opcion) {
-                case 1 -> System.out.println("Saldo (a implementar)");
+                case 1 -> System.out.println("Saldo disponible: $" + saldo);
                 case 2 -> System.out.println("Depósito (a implementar)");
                 case 3 -> System.out.println("Retiro (a implementar)");
                 case 4 -> System.out.println("Gracias por usar el cajero.");
