@@ -3,11 +3,14 @@ package com.cajero;
 import java.util.Scanner;
 
 public class CajeroAutomatico {
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion;
 
-        int saldo = 0;
+        int[] billetes = {50000, 20000, 10000, 5000};
+        int[] cantidades = {10, 10, 10, 10};
+        int saldo = calcularSaldo(billetes, cantidades);
 
         do {
             System.out.println("\n=== Simulador Cajero Automático ===");
@@ -23,17 +26,44 @@ public class CajeroAutomatico {
                 case 2 -> {
                     System.out.print("Ingrese monto a depositar: ");
                     int deposito = sc.nextInt();
-                    saldo += deposito;
+
+                    int index = 3;
+                    int cantidadBilletes = deposito / billetes[index];
+                    cantidades[index] += cantidadBilletes;
+                    saldo = calcularSaldo(billetes, cantidades);
                     System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
                 }
                 case 3 -> {
                     System.out.print("Ingrese monto a retirar: ");
                     int retiro = sc.nextInt();
-                    if (retiro <= saldo) {
-                        saldo -= retiro;
-                        System.out.println("Retiro exitoso. Nuevo saldo: $" + saldo);
-                    } else {
+
+                    if (retiro > saldo) {
                         System.out.println("Fondos insuficientes. Su saldo es: $" + saldo);
+                    } else {
+                        int[] retiroBilletes = new int[billetes.length];
+                        int montoRestante = retiro;
+
+                        for (int i = 0; i < billetes.length; i++) {
+                            int cantidadNecesaria = montoRestante / billetes[i];
+                            int cantidadDisponible = cantidades[i];
+                            int cantidadUsada = Math.min(cantidadNecesaria, cantidadDisponible);
+
+                            retiroBilletes[i] = cantidadUsada;
+                            montoRestante -= cantidadUsada * billetes[i];
+                        }
+
+                        if (montoRestante == 0) {
+
+                            for (int i = 0; i < billetes.length; i++) {
+                                cantidades[i] -= retiroBilletes[i];
+                            }
+                            saldo = calcularSaldo(billetes, cantidades);
+                            System.out.println("Retiro exitoso de $" + retiro);
+                            mostrarBilletes(retiroBilletes, billetes);
+                            System.out.println("Nuevo saldo: $" + saldo);
+                        } else {
+                            System.out.println("No hay billetes suficientes para entregar ese monto.");
+                        }
                     }
                 }
                 case 4 -> System.out.println("Gracias por usar el cajero.");
@@ -44,5 +74,21 @@ public class CajeroAutomatico {
 
         sc.close();
     }
-}
 
+    private static int calcularSaldo(int[] billetes, int[] cantidades) {
+        int saldo = 0;
+        for (int i = 0; i < billetes.length; i++) {
+            saldo += billetes[i] * cantidades[i];
+        }
+        return saldo;
+    }
+
+    private static void mostrarBilletes(int[] retiroBilletes, int[] billetes) {
+        System.out.println("Billetes entregados:");
+        for (int i = 0; i < billetes.length; i++) {
+            if (retiroBilletes[i] > 0) {
+                System.out.println("$" + billetes[i] + " x " + retiroBilletes[i]);
+            }
+        }
+    }
+}
