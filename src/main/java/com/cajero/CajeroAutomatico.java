@@ -20,8 +20,22 @@ public class CajeroAutomatico {
 
             switch (opcion) {
                 case 1 -> System.out.println("Saldo disponible: $" + saldo);
-                case 2 -> System.out.println("Depósito (a implementar)");
-                case 3 -> System.out.println("Retiro (a implementar)");
+                case 2 -> {
+                    System.out.print("Ingrese monto a depositar: ");
+                    int deposito = sc.nextInt();
+                    saldo += deposito;
+                    System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
+                }
+                case 3 -> {
+                    System.out.print("Ingrese monto a retirar: ");
+                    int retiro = sc.nextInt();
+                    if (retiro <= saldo) {
+                        saldo -= retiro;
+                        System.out.println("Retiro exitoso. Nuevo saldo: $" + saldo);
+                    } else {
+                        System.out.println("Fondos insuficientes. Su saldo es: $" + saldo);
+                    }
+                }
                 case 4 -> System.out.println("Gracias por usar el cajero.");
                 default -> System.out.println("Opción inválida.");
             }
