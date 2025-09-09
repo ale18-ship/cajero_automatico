@@ -64,7 +64,7 @@ mvn exec:java -Dexec.mainClass="com.cajero.CajeroAutomatico"
 ```
 ---
 ## 🛠️ Tecnologías
-- Java 17
+- Java 21
 - Maven
 - IntelliJ IDEA
 - Git y GitHub
