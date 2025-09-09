@@ -27,11 +27,15 @@ public class CajeroAutomatico {
                     System.out.print("Ingrese monto a depositar: ");
                     int deposito = sc.nextInt();
 
-                    int index = 3;
-                    int cantidadBilletes = deposito / billetes[index];
-                    cantidades[index] += cantidadBilletes;
-                    saldo = calcularSaldo(billetes, cantidades);
-                    System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
+                    if (deposito % 5000 != 0) {
+                        System.out.println("El cajero solo acepta múltiplos de $5000.");
+                    } else {
+                        int index = 3; // posición del billete de $5000
+                        int cantidadBilletes = deposito / billetes[index];
+                        cantidades[index] += cantidadBilletes;
+                        saldo = calcularSaldo(billetes, cantidades);
+                        System.out.println("Depósito exitoso. Nuevo saldo: $" + saldo);
+                    }
                 }
                 case 3 -> {
                     System.out.print("Ingrese monto a retirar: ");
