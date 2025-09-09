@@ -62,6 +62,17 @@ mvn clean compile
 mvn exec:java -Dexec.mainClass="com.cajero.CajeroAutomatico"
 
 ```
+---
+## 🛠️ Tecnologías
+- Java 17
+- Maven
+- IntelliJ IDEA
+- Git y GitHub
+---
+## ✒️ Autor
+- Alexis Juliette Cera Paez
+- Materia: Estructuras de Datos
+- Universidad de Cartagena / Profesor: Jhon Arrieta 
 
 
 
